@@ -197,7 +197,7 @@ class UserRankingTask:
                                                                    self.test_item_ids_grouped,
                                                                    reference="k_ranked_test_items")
 
-        metric_results['dcg_c'] = compute_dcg_for_user(self.scores_by_test_items,
+        metric_results['dcg_l'] = compute_dcg_for_user(self.scores_by_test_items,
                                                        self.test_item_ids_grouped,
                                                        top_k_result,
                                                        dcg_version='liberal')
