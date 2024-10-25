@@ -110,6 +110,14 @@ def process_data(main_path, dataset_name, seed):
             data = Data(pd.DataFrame(data), implicit=False, users_on_test=10000)
             with open(f'{main_path}data.pkl', 'wb') as f:
                 pickle.dump(data, f)
+        elif dataset_name.startswith('amazon_'):
+            amazon_with_category_idx = dataset_name.find("_", dataset_name.find("_") + 1)
+            amazon_with_category = dataset_name[:amazon_with_category_idx]
+            data = pd.read_csv(f'./data/{amazon_with_category}/{dataset_name}.csv')
+            data.columns = ['user', 'item', 'score', 'timestamps']
+            data = Data(data, implicit=False, users_on_test=10000, seed=seed, distances=False)
+            with open(f'{main_path}data.pkl', 'wb') as f:
+                pickle.dump(data, f, protocol=4)
         else:
             raise ValueError(f'The dataset of {dataset_name} is invalid')
 
